@@ -7,6 +7,7 @@ from cinema.serializers import MovieListSerializer, MovieDetailSerializer
 
 
 class MovieListView(APIView):
+
     def get(self, request):
         movies = Movie.objects.filter(draft=False)
         serializer = MovieListSerializer(movies, many=True)
@@ -14,6 +15,7 @@ class MovieListView(APIView):
 
 
 class MovieDetailView(APIView):
+
     def get(self, request, pk):
         movies = Movie.objects.get(id=pk, draft=False)
         serializer = MovieDetailSerializer(movies)
