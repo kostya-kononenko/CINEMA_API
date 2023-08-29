@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from cinema.models import Movie, Reviews
+from cinema.models import Movie, Reviews, Rating
 
 
 class FilterReviewListSerializer(serializers.ListSerializer):
@@ -46,3 +46,17 @@ class MovieDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         exclude = ("draft", )
+
+
+class CreateRatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rating
+        fields = ("star", "movie")
+
+        def create(self, validate_data):
+            rating = Rating.objects.update_or_create(
+                ip=validate_data.get("ip", None),
+                movie=validate_data.get("movie", None),
+                defaults={"star": validate_data.get("star")}
+            )
+            return rating
