@@ -6,7 +6,7 @@ from cinema.models import Movie
 class MovieListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ("title", "tagline", "category")
+        fields = ("title", "tagline")
 
 
 class MovieDetailSerializer(serializers.ModelSerializer):
